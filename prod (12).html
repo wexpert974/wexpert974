@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="yandex" content="none">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEXPERT | Ապրանքի մանրամասներ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Swiper-ը unpkg-ով (jsDelivr-ը որոշ ցանցերում blocked է լինում) -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@11/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper@11/swiper-bundle.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="prod.css">
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() { emailjs.init("YOUR_EMAILJS_PUBLIC_KEY"); })();
+    </script>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container header-flex">
+            <button class="burger-menu" id="burgerToggle" aria-label="Menu"><span></span><span></span></button>
+            <div class="logo"><a href="index.html">WATCHES <span class="accent">FOR YOU</span></a></div>
+            <nav class="nav-menu desktop-only">
+                <ul><li><a href="index.html">Գլխավոր</a></li><li><a href="com.html">Մեր մասին</a></li></ul>
+            </nav>
+            <div class="header-actions"><a href="#" class="cart-btn" id="openCartBtn"><span class="cart-text">Զամբյուղ</span> (<span id="cartCount">0</span>)</a></div>
+        </div>
+    </header>
+
+    <div class="mobile-nav-overlay" id="mobileMenu">
+        <ul class="mobile-menu-links">
+            <li><a href="index.html">Գլխավոր</a></li>
+            <li><a href="com.html" class="about-btn-link">Մեր մասին</a></li>
+        </ul>
+    </div>
+
+    <section class="prod-page-section">
+        <div class="container">
+            <a href="index.html#catalog" class="prod-back-link">← Վերադառնալ կատալոգ</a>
+
+            <div id="prodLoadingState" class="prod-loading">Բեռնվում է...</div>
+            <div id="prodNotFoundState" class="prod-notfound" style="display:none;">Ապրանքը չի գտնվել կամ ջնջվել է։</div>
+
+            <div class="prod-layout" id="prodLayout" style="display:none;">
+                <div class="prod-img-wrap">
+                    <span class="prod-pinned-badge" id="prodPinnedBadge" style="display:none;">TOP</span>
+                    <span class="prod-pinned-badge" id="prodNewBadge" style="display:none; left:auto; right:16px; background:#28a745;">NEW</span>
+                    <div class="swiper prod-img-swiper" id="prodImgSwiper">
+                        <div class="swiper-wrapper" id="prodImgWrapper"></div>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
+                </div>
+
+                <div class="prod-info-col">
+                    <div class="prod-brand" id="prodBrandText">---</div>
+                    <h1 class="prod-title" id="prodTitleText"></h1>
+                    <div class="prod-tags">
+                        <span class="prod-tag" id="prodGenderTag">Unisex</span>
+                        <span class="prod-tag" id="prodVariantTag"></span>
+                        <span class="prod-tag out" id="prodStockTag" style="display:none;">Առկա չէ</span>
+                    </div>
+
+                    <div class="prod-details-box">
+                        <p>Ապրանքանիշ (Բրենդ)՝ <span id="detBrand">---</span></p>
+                        <p>Նախատեսված է՝ <span id="detGender">---</span></p>
+                        <p id="detCollectionRow" style="display:none;">Հավաքածու՝ <span id="detCollection">---</span></p>
+                        <p style="margin-top: 12px; font-weight: 600; color: #000;">Ընտրեք տարբերակը՝</p>
+                        <select id="detVariantSelect" class="modal-input" style="margin-bottom: 0;"></select>
+                    </div>
+
+                    <div class="prod-bio-box">
+                        <div class="prod-bio-title">ՆԿԱՐԱԳՐՈՒԹՅՈՒՆ</div>
+                        <p class="prod-bio-text" id="prodBioText"></p>
+                    </div>
+
+                    <div class="dynamic-price-box">
+                        <div class="price-label">Ընդհանուր Արժեքը</div>
+                        <div class="modal-prices-display">
+                            <span class="price-value" id="detPriceOld"></span>
+                            <span class="price-value" id="detPrice">0</span>
+                            <span style="font-weight: 600; color: #000;">AMD</span>
+                        </div>
+                    </div>
+                 
+
+                    <input type="text" id="customerName" class="modal-input" placeholder="Ձեր Անունը...">
+                    <input type="tel" id="customerPhone" class="modal-input" placeholder="Ձեր Հեռախոսահամարը...">
+
+                    <div class="modal-action-btns">
+                        <button id="addToCartBtn" class="btn-secondary">Ավելացնել զամբյուղ</button>
+                        <button id="submitOrderBtn" class="btn-primary" style="width: 100%; border: none; cursor: pointer;">Գրանցել պատվեր</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeCartModalBtn">✕</button>
+            <h3 class="modal-title">Ձեր Զամբյուղը</h3>
+            <div class="cart-items-list" id="cartItemsContainer"></div>
+            <div class="dynamic-price-box">
+                <div class="price-label">Զամբյուղի Ընդհանուր Գումարը</div>
+                <span class="price-value" id="cartTotalSum">0</span> <span>AMD</span>
+            </div>
+         
+            <div id="cartOrderForm">
+                <input type="text" id="cartCustomerName" class="modal-input" placeholder="Ձեր Անունը...">
+                <input type="tel" id="cartCustomerPhone" class="modal-input" placeholder="Ձեր Հեռախոսահամարը...">
+                <button id="submitCartOrderBtn" class="btn-primary" style="width: 100%; border: none; cursor: pointer;">Պատվիրել Զամբյուղից</button>
+            </div>
+        </div>
+    </div>
+
+<footer class="footer-section">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-box">
+                <h3>Մեր մասին</h3>
+                <p>WEXPERT-ն առաջարկում է օրիգինալ ժամացույցներ՝ ճշգրիտ մեխանիկայով և ազնիվ նյութերով։ Յուրաքանչյուր մոդել ընտրված է ձեր ոճն ընդգծելու համար։</p>
+            </div>
+            <div class="footer-box">
+                <h3>Կապ մեզ հետ</h3>
+                <p>📞 Հեռ.: +374 77 33 47 33</p>
+                <p>📍 Հասցե: ք. Երևան</p>
+             
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 WEXPERT. Բոլոր իրավունքները պաշտպանված են։</div>
+    </div>
+</footer>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, get, push } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    const SITE = {
+        brandName: "WEXPERT",
+        notifyEmail: "YOUR_EMAIL@gmail.com",
+        emailjsService: "YOUR_SERVICE_ID",
+        emailjsTemplate: "YOUR_TEMPLATE_ID"
+    };
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDcGdGnJ-tjrNhYqeez4Z4VzgTO6xWhVCw",
+        authDomain: "watch-c4191.firebaseapp.com",
+        databaseURL: "https://watch-c4191-default-rtdb.firebaseio.com",
+        projectId: "watch-c4191",
+        storageBucket: "watch-c4191.firebasestorage.app",
+        messagingSenderId: "1031003553118",
+        appId: "1:1031003553118:web:2e3476d0473d2c9aaaa3cf",
+        measurementId: "G-LQ48Z8E3HW"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    document.getElementById('burgerToggle').addEventListener('click', function() {
+        this.classList.toggle('open');
+        document.getElementById('mobileMenu').classList.toggle('open');
+    });
+
+    /* ─── Կիսված զամբյուղ (localStorage) ─────────────────────────────────── */
+    const CART_KEY = 'wfy_cart';
+    function getCart() {
+        try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+        catch (e) { return []; }
+    }
+    function saveCart(c) { localStorage.setItem(CART_KEY, JSON.stringify(c)); }
+    document.getElementById('cartCount').innerText = getCart().length;
+
+    let cart = getCart();
+
+    function updateCartUI() {
+        cart = getCart();
+        document.getElementById('cartCount').innerText = cart.length;
+        const container = document.getElementById('cartItemsContainer');
+        container.innerHTML = '';
+        if (cart.length === 0) {
+            container.innerHTML = '<p class="cart-empty-text">Ձեր զամբյուղը դատարկ է:</p>';
+            document.getElementById('cartTotalSum').innerText = 0;
+            document.getElementById('cartOrderForm').style.display = 'none';
+            return;
+        }
+        document.getElementById('cartOrderForm').style.display = 'block';
+        let totalSum = 0;
+        cart.forEach((item, index) => {
+            totalSum += item.price;
+            const div = document.createElement('div');
+            div.className = 'cart-item';
+            div.innerHTML = `
+                <div class="cart-item-info">
+                    <div class="cart-item-title">${item.brand} ${item.title}</div>
+                    <div class="cart-item-meta">${item.variant || ''} | [${item.gender}]</div>
+                </div>
+                <div class="cart-item-price">${item.price} AMD</div>
+                <button class="btn-remove-cart" data-index="${index}">✕</button>
+            `;
+            container.appendChild(div);
+        });
+        document.getElementById('cartTotalSum').innerText = totalSum;
+        document.querySelectorAll('.btn-remove-cart').forEach(btn => {
+            btn.addEventListener('click', function() {
+                cart.splice(Number(this.dataset.index), 1);
+                saveCart(cart);
+                updateCartUI();
+            });
+        });
+    }
+
+    const cartModal = document.getElementById('cartModal');
+    document.getElementById('openCartBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        updateCartUI();
+        cartModal.classList.add('active');
+    });
+    document.getElementById('closeCartModalBtn').addEventListener('click', () => cartModal.classList.remove('active'));
+    window.addEventListener('click', (e) => {
+        if (e.target === cartModal) cartModal.classList.remove('active');
+    });
+
+    document.getElementById('submitCartOrderBtn').addEventListener('click', () => {
+        const name = document.getElementById('cartCustomerName').value.trim();
+        const phone = document.getElementById('cartCustomerPhone').value.trim();
+        cart = getCart();
+        if (name && phone && cart.length > 0) {
+            const currentDate = new Date().toLocaleDateString('hy-AM');
+            const finalItemsString = cart.map(i => `${i.brand} ${i.title} (${i.variant || ''})`).join(' + ');
+            const finalTotal = Number(document.getElementById('cartTotalSum').innerText);
+            push(ref(db, 'orders'), { name, phone, items: finalItemsString, total: finalTotal, date: currentDate }).then(() => {
+                sendEmailNotification(name, phone, finalItemsString, finalTotal, currentDate);
+                alert('Ձեր զամբյուղի պատվերն ընդունված է։ Շնորհակալություն։ Մեր աշխատակիցը շուտով կկապնվի ձեզ հետ։');
+                cart = [];
+                saveCart(cart);
+                updateCartUI();
+                document.getElementById('cartCustomerName').value = '';
+                document.getElementById('cartCustomerPhone').value = '';
+                cartModal.classList.remove('active');
+            });
+        } else {
+            alert('Խնդրում ենք լրացնել անունը և հեռախոսահամարը։');
+        }
+    });
+
+    let selectedProduct = null;
+    let currentVariants = [];
+    let imgSwiperInstance = null;
+
+    function getProductImages(prod) {
+        let imgs = prod.images;
+        if (imgs && !Array.isArray(imgs) && typeof imgs === 'object') {
+            imgs = Object.values(imgs);
+        }
+        if (!Array.isArray(imgs)) imgs = [];
+        imgs = imgs.filter(u => typeof u === 'string' && u.trim() !== '');
+        if (imgs.length === 0 && prod.img && prod.img.trim() !== '') {
+            imgs = [prod.img];
+        }
+        return imgs;
+    }
+
+    function renderImageGallery(prod) {
+        try {
+            const images = getProductImages(prod);
+            const wrapper = document.getElementById('prodImgWrapper');
+
+            if (images.length === 0) {
+                wrapper.innerHTML = `<div class="swiper-slide" style="display:flex; align-items:center; justify-content:center; color:#999; font-size:14px;">Նկար հասանելի չէ</div>`;
+            } else {
+                wrapper.innerHTML = images.map(url =>
+                    `<div class="swiper-slide"><img src="${url}" alt="${prod.title || ''}"></div>`
+                ).join('');
+            }
+
+            if (imgSwiperInstance) {
+                imgSwiperInstance.destroy(true, true);
+                imgSwiperInstance = null;
+            }
+
+            if (typeof Swiper === 'undefined') {
+                console.error('Swiper գրադարանը չի բեռնվել — նկարը կցուցադրվի առանց սլայդերի');
+                return;
+            }
+
+            imgSwiperInstance = new Swiper('#prodImgSwiper', {
+                loop: images.length > 2,
+                observer: true,
+                observeParents: true,
+                pagination: { el: '.prod-img-swiper .swiper-pagination', clickable: true },
+                navigation: {
+                    nextEl: '.prod-img-swiper .swiper-button-next',
+                    prevEl: '.prod-img-swiper .swiper-button-prev'
+                },
+                slidesPerView: 1,
+                spaceBetween: 0,
+                grabCursor: true
+            });
+
+            setTimeout(() => { if (imgSwiperInstance) imgSwiperInstance.update(); }, 300);
+            window.addEventListener('load', () => { if (imgSwiperInstance) imgSwiperInstance.update(); }, { once: true });
+        } catch (err) {
+            console.error('renderImageGallery error:', err);
+        }
+    }
+
+    function updatePriceDisplay(variant) {
+        const oldPriceContainer = document.getElementById('detPriceOld');
+        const currentPriceContainer = document.getElementById('detPrice');
+        if (!variant) return;
+        if (variant.salePrice && Number(variant.salePrice) > 0) {
+            oldPriceContainer.innerText = variant.price + " AMD";
+            oldPriceContainer.className = "price-value old-struck";
+            oldPriceContainer.style.display = "inline";
+            currentPriceContainer.innerText = variant.salePrice;
+            currentPriceContainer.className = "price-value new-sale";
+        } else {
+            oldPriceContainer.style.display = "none";
+            currentPriceContainer.innerText = variant.price;
+            currentPriceContainer.className = "price-value";
+        }
+    }
+
+    function renderProduct(prod) {
+        selectedProduct = prod;
+
+        document.getElementById('prodLoadingState').style.display = 'none';
+        document.getElementById('prodLayout').style.display = 'grid';
+
+        renderImageGallery(prod);
+        document.getElementById('prodTitleText').innerText = prod.title;
+        document.getElementById('prodBrandText').innerText = prod.brand || '---';
+        document.getElementById('detBrand').innerText = prod.brand || '---';
+        document.getElementById('detGender').innerText = prod.gender || 'Unisex';
+        document.getElementById('prodGenderTag').innerText = prod.gender || 'Unisex';
+
+        document.getElementById('prodPinnedBadge').style.display = prod.pinned ? 'inline-block' : 'none';
+        document.getElementById('prodNewBadge').style.display = prod.isNew ? 'inline-block' : 'none';
+
+        const collectionRow = document.getElementById('detCollectionRow');
+        if (prod.collection && prod.collection.trim() !== '') {
+            document.getElementById('detCollection').innerText = prod.collection;
+            collectionRow.style.display = 'block';
+        } else {
+            collectionRow.style.display = 'none';
+        }
+
+        const stockTag = document.getElementById('prodStockTag');
+        const inStock = prod.inStock !== false;
+        stockTag.style.display = inStock ? 'none' : 'inline-block';
+        document.getElementById('addToCartBtn').disabled = !inStock;
+        document.getElementById('submitOrderBtn').disabled = !inStock;
+        if (!inStock) {
+            document.getElementById('addToCartBtn').style.opacity = '0.5';
+            document.getElementById('submitOrderBtn').style.opacity = '0.5';
+        }
+
+        const bioText = document.getElementById('prodBioText');
+        if (prod.bio && prod.bio.trim() !== '') {
+            bioText.innerText = prod.bio;
+            bioText.classList.remove('prod-bio-empty');
+        } else {
+            bioText.innerText = 'Այս ապրանքի նկարագրությունը դեռ ավելացված չէ։';
+            bioText.classList.add('prod-bio-empty');
+        }
+
+        let variantsRaw = prod.variants;
+        if (variantsRaw && !Array.isArray(variantsRaw) && typeof variantsRaw === 'object') {
+            variantsRaw = Object.values(variantsRaw);
+        }
+        currentVariants = Array.isArray(variantsRaw) ? [...variantsRaw] : [];
+
+        document.getElementById('prodVariantTag').innerText = currentVariants.length > 1
+            ? `${currentVariants.length} տարբերակ`
+            : (currentVariants[0] ? currentVariants[0].name : '');
+
+        const select = document.getElementById('detVariantSelect');
+        select.innerHTML = '';
+        currentVariants.forEach((v, idx) => {
+            const option = document.createElement('option');
+            option.value = idx;
+            option.text = v.name;
+            select.appendChild(option);
+        });
+        select.value = 0;
+        updatePriceDisplay(currentVariants[0]);
+
+        document.title = `${prod.title} | ${SITE.brandName}`;
+    }
+
+    document.getElementById('detVariantSelect').addEventListener('change', function() {
+        updatePriceDisplay(currentVariants[Number(this.value)]);
+    });
+
+    document.getElementById('addToCartBtn').addEventListener('click', () => {
+        if (selectedProduct) {
+            const idx = Number(document.getElementById('detVariantSelect').value);
+            const finalVariant = currentVariants[idx] ? currentVariants[idx].name : '';
+            const finalPrice = Number(document.getElementById('detPrice').innerText);
+            const cart = getCart();
+            cart.push({
+                title: selectedProduct.title,
+                brand: selectedProduct.brand || '',
+                gender: selectedProduct.gender || 'Unisex',
+                variant: finalVariant,
+                price: finalPrice
+            });
+            saveCart(cart);
+            document.getElementById('cartCount').innerText = cart.length;
+            alert('Ապրանքն ավելացվեց զամբյուղի մեջ։');
+        }
+    });
+
+    function sendEmailNotification(name, phone, items, total, date) {
+        emailjs.send(SITE.emailjsService, SITE.emailjsTemplate, {
+            customer_name: name,
+            customer_phone: phone,
+            order_items: items,
+            total_price: total + " AMD",
+            order_date: date,
+            email: SITE.notifyEmail
+        }).then(
+            r => console.log("Email ուղարկվեց!", r.status),
+            e => console.error("Email սխալ", e)
+        );
+    }
+
+    document.getElementById('submitOrderBtn').addEventListener('click', () => {
+        const name = document.getElementById('customerName').value.trim();
+        const phone = document.getElementById('customerPhone').value.trim();
+        if (name && phone && selectedProduct) {
+            const idx = Number(document.getElementById('detVariantSelect').value);
+            const finalVariant = currentVariants[idx] ? currentVariants[idx].name : '';
+            const finalPrice = document.getElementById('detPrice').innerText;
+            const currentDate = new Date().toLocaleDateString('hy-AM');
+            const orderItemInfo = `${selectedProduct.brand || ''} ${selectedProduct.title} (${finalVariant}) [${selectedProduct.gender || 'Unisex'}]`;
+            push(ref(db, 'orders'), { name, phone, items: orderItemInfo, total: Number(finalPrice), date: currentDate }).then(() => {
+                sendEmailNotification(name, phone, orderItemInfo, finalPrice, currentDate);
+                alert('Ձեր պատվերն ընդունված է։ Շնորհակալություն գնումների համար։ Մեր աշխատակիցը շուտով կկապնվի ձեզ հետ։');
+                document.getElementById('customerName').value = '';
+                document.getElementById('customerPhone').value = '';
+            });
+        } else {
+            alert('Խնդրում ենք լրացնել անունը և հեռախոսահամարը։');
+        }
+    });
+
+    /* ─── Բեռնում ենք ապրանքը ըստ URL-ի id պարամետրի ─────────────────────── */
+    async function loadProductFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        if (!id) {
+            document.getElementById('prodLoadingState').style.display = 'none';
+            document.getElementById('prodNotFoundState').style.display = 'block';
+            return;
+        }
+        try {
+            const snapshot = await get(ref(db, `products/${id}`));
+            if (snapshot.exists()) {
+                renderProduct({ id, ...snapshot.val() });
+            } else {
+                document.getElementById('prodLoadingState').style.display = 'none';
+                document.getElementById('prodNotFoundState').style.display = 'block';
+            }
+        } catch (error) {
+            console.error('Error loading product:', error);
+            document.getElementById('prodLoadingState').style.display = 'none';
+            document.getElementById('prodNotFoundState').style.display = 'block';
+        }
+    }
+
+    loadProductFromUrl();
+</script>
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEXPERT | Մեր մասին և Գաղտնիության քաղաքականություն</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #C6A15B;
+            --accent-soft: #F3EADA;
+            --black: #0E0F12;
+            --gray: #555;
+            --line: #E6E6E4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif;
+            background-color: #FFFFFF;
+            color: var(--black);
+            line-height: 1.7;
+        }
+
+        a { color: var(--black); text-decoration: none; }
+
+        /* ── Header ── */
+        .page-header {
+            background: var(--black);
+            color: #fff;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .brand-name {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+        }
+
+        .brand-name span { color: var(--accent); }
+
+        .back-btn {
+            padding: 7px 16px;
+            color: #fff;
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 500;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        .back-btn:hover { background: var(--accent); color: var(--black); }
+
+        /* ── Content ── */
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 0 60px;
+        }
+
+        .page-title {
+            font-size: 26px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--accent);
+            display: table;
+            margin: 0 auto 25px;
+        }
+
+        section { margin-bottom: 38px; }
+
+        h2 {
+            font-size: 19px;
+            margin-bottom: 12px;
+            letter-spacing: 0.3px;
+        }
+
+        h2::before {
+            content: "✦ ";
+            color: var(--accent);
+        }
+
+        h3 {
+            font-size: 15px;
+            margin: 16px 0 6px;
+            font-weight: 600;
+        }
+
+        p, li { color: var(--gray); font-size: 15px; }
+
+        ul { padding-left: 20px; margin: 8px 0; }
+        li { margin-bottom: 6px; }
+
+        .updated {
+            text-align: center;
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 30px;
+        }
+
+        /* ── Կարևոր ծանուցում (disclaimer) ── */
+        .notice-box {
+            border: 2px solid var(--accent);
+            background: var(--accent-soft);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .notice-box h2 { margin-bottom: 10px; }
+        .notice-box p { color: #3a3a3a; }
+        .notice-box p + p { margin-top: 10px; }
+
+        .info-box {
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 18px 0;
+        }
+
+        .installment-box {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 22px 0;
+            padding: 16px;
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            color: #3a3a3a;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .contact-info {
+            margin-top: 10px;
+            padding-top: 18px;
+            border-top: 1px solid var(--line);
+        }
+
+        .contact-info p { margin-bottom: 8px; }
+
+        .footer-note {
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            border-top: 1px solid var(--line);
+            padding-top: 20px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 480px) {
+            .page-title { font-size: 21px; }
+            .brand-name { font-size: 14px; letter-spacing: 1px; }
+            .container { padding: 28px 0 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="page-header">
+        <div class="header-inner">
+            <div class="brand-name">Watches <span>For You</span></div>
+            <a href="index.html" class="back-btn">← Գլխավոր</a>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <h1 class="page-title">Մեր մասին</h1>
+        <p class="updated">Վերջին թարմացումը՝ 2026թ.</p>
+
+        <section>
+            <p>
+                WEXPERT-ն առցանց խանութ է, որտեղ ներկայացված են տարբեր բրենդների ժամացույցներ՝
+                դասականից մինչև ժամանակակից սպորտային մոդելներ։ Մենք ընտրում ենք ժամացույցներ, որոնք
+                ընդգծում են ձեր ոճն ու բնավորությունը՝ ճշգրիտ մեխանիկա, ազնիվ նյութեր և դիզայն,
+                որը ժամանակի հետ չի հնանում։
+            </p>
+        </section>
+
+        <!-- ══ ԿԱՐԵՎՈՐ ԾԱՆՈՒՑՈՒՄ ══ -->
+        <div class="notice-box">
+            <h2>Կարևոր ծանուցում</h2>
+            <p>
+                WEXPERT-ն <strong>ՉԻ հանդիսանում</strong> կայքում ներկայացված ապրանքանիշերի
+                պաշտոնական ներկայացուցիչ, պաշտոնական դիստրիբյուտոր կամ լիազորված դիլեր
+                Հայաստանի Հանրապետությունում։
+            </p>
+            <p>
+                Բոլոր ապրանքանիշերի անվանումները, լոգոները և ապրանքային նշանները պատկանում են
+                իրենց իրավատերերին և կայքում օգտագործվում են բացառապես վաճառվող ապրանքը
+                նույնականացնելու և նկարագրելու նպատակով։ Մենք որևէ իրավական, գործընկերային կամ
+                այլ պաշտոնական կապ չունենք այդ ընկերությունների հետ և չենք հանդես գալիս նրանց անունից։
+            </p>
+            <p>
+                Ապրանքների սպասարկումը, երաշխիքային պայմանները և վերադարձը կարգավորվում են
+                անմիջապես մեր կողմից՝ ստորև նշված կոնտակտային տվյալներով, և չեն իրականացվում
+                արտադրողի պաշտոնական սպասարկման կենտրոնների միջոցով, եթե այլ բան նշված չէ։
+            </p>
+        </div>
+
+       
+
+        <!-- ══ ԳԱՂՏՆԻՈՒԹՅԱՆ ՔԱՂԱՔԱԿԱՆՈՒԹՅՈՒՆ ══ -->
+        <h1 class="page-title" style="margin-top: 45px;">Գաղտնիության քաղաքականություն</h1>
+
+        <section>
+            <h2>1. Ի՞նչ տվյալներ ենք հավաքում</h2>
+            <p>Պատվեր ձևակերպելիս դուք տրամադրում եք միայն այն տվյալները, որոնք անհրաժեշտ են պատվերը մշակելու համար՝</p>
+            <ul>
+                <li>անուն,</li>
+                <li>հեռախոսահամար,</li>
+                <li>պատվիրված ապրանքի տվյալները և գումարը,</li>
+                <li>պատվերի ամսաթիվը։</li>
+            </ul>
+            <p>
+                Մենք չենք հավաքում և չենք պահում վճարային քարտերի տվյալներ, անձնագրային կամ
+                այլ փաստաթղթային տվյալներ։
+            </p>
+        </section>
+
+        <section>
+            <h2>2. Ինչու՞ ենք օգտագործում այդ տվյալները</h2>
+            <ul>
+                <li>ձեզ հետ կապ հաստատելու և պատվերը հաստատելու համար,</li>
+                <li>ապրանքը առաքելու կամ հանձնելու համար,</li>
+                <li>վաճառքից հետո սպասարկման և հարցերին պատասխանելու համար։</li>
+            </ul>
+            <p>Ձեր տվյալները չեն օգտագործվում գովազդային նամակագրության համար՝ առանց ձեր համաձայնության։</p>
+        </section>
+
+        <section>
+            <h2>3. Ո՞ւր են պահվում տվյալները</h2>
+            <p>
+                Կայքի տվյալները (ապրանքներ և պատվերներ) պահվում են Google Firebase ամպային
+                ծառայության սերվերներում՝ պաշտպանված մուտքի սահմանափակումներով։ Պատվերի
+                տվյալներին հասանելիություն ունի միայն կայքի ադմինիստրատորը։
+            </p>
+        </section>
+
+        <section>
+            <h2>4. Տվյալների փոխանցում երրորդ անձանց</h2>
+            <p>
+                Մենք չենք վաճառում և չենք փոխանցում ձեր անձնական տվյալները երրորդ անձանց՝
+                բացառությամբ այն դեպքերի, երբ դա անհրաժեշտ է պատվերն իրականացնելու համար
+                (օրինակ՝ առաքման ծառայություն) կամ պահանջվում է ՀՀ օրենսդրությամբ։
+            </p>
+        </section>
+
+        <section>
+            <h2>5. Cookie-ներ և տեղային պահոց</h2>
+            <p>
+                Ձեր զամբյուղը պահվում է անմիջապես ձեր բրաուզերի հիշողության մեջ (localStorage)՝
+                որպեսզի ընտրած ապրանքները չկորչեն էջերի միջև տեղափոխվելիս։ Այդ տվյալները
+                չեն ուղարկվում մեզ մինչև պատվերի ձևակերպումը և կարող եք ջնջել՝ մաքրելով
+                բրաուզերի տվյալները։ Կայքը կարող է օգտագործել նաև Google Analytics՝ այցելությունների
+                ընդհանուր վիճակագրության համար՝ առանց ձեզ անհատապես նույնականացնելու։
+            </p>
+        </section>
+
+        <section>
+            <h2>6. Ձեր իրավունքները</h2>
+            <p>
+                Դուք ցանկացած պահի կարող եք պահանջել՝ իմանալ ձեր մասին պահվող տվյալները,
+                ուղղել դրանք կամ ջնջել ձեր պատվերի գրառումը մեր բազայից։ Դրա համար
+                բավական է կապ հաստատել մեզ հետ ստորև նշված միջոցներով։
+            </p>
+        </section>
+
+        <section>
+            <h2>7. Փոփոխություններ</h2>
+            <p>
+                Սույն քաղաքականությունը կարող է ժամանակ առ ժամանակ թարմացվել։ Գործող
+                տարբերակը միշտ հրապարակված է այս էջում։
+            </p>
+        </section>
+
+        <div class="info-box contact-info">
+            <h3>Կապ մեզ հետ</h3>
+            <p>📞 Հեռ.: +374 77 33 47 33</p>
+            <p>📍 Հասցե: ք. Երևան</p>
+          
+        </div>
+
+        <div class="footer-note">
+            &copy; 2026 WEXPERT. Բոլոր իրավունքները պաշտպանված են։
+        </div>
+
+    </div>
+
+</body>
+</html>
